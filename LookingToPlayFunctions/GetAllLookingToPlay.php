@@ -60,6 +60,9 @@ function GetAllLookingToPay(){
     $stmt3->close();
     $conn->close();
 
+    header('Content-Type: application/xml');
+
+    // Output the XML directly
     echo $xml->asXML();
 }
 ?>
