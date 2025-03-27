@@ -1,7 +1,7 @@
 <?php
 require_once 'db.php';
 
-function AddLookingToPlay($availableDateTimes,$country, $city, $detailedLocation, $description, $user_id) {
+function AddLookingToPlay($availableDateTimes,$country, $city, $detailedLocation, $choosenSports,$description, $user_id) {
     $conn = openConnection();
     
     // Insert into lookingtoplay
@@ -19,8 +19,16 @@ function AddLookingToPlay($availableDateTimes,$country, $city, $detailedLocation
             $stmt->bind_param("sssi", $availableDateTime['Date'], $availableDateTime['FromTime'], $availableDateTime['ToTime'], $lookingToPlayId);
             $stmt->execute();
         }
-        
         $stmt->close();
+
+        $stmt = $conn->prepare("INSERT INTO choosensport (name, lookingtoplay_id) VALUES (?, ?)");
+        
+        foreach ($choosenSports as $sport) {
+            $stmt->bind_param("si", $sport, $lookingToPlayId);
+            $stmt->execute();
+        }
+        $stmt->close();
+
         $conn->close();
 
         echo json_encode(["status" => "success", "message" => "Added successfully"]);
