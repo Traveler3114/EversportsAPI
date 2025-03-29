@@ -15,8 +15,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     elseif ($input['action'] === 'login') {
         login($input['user']['email'], $input['user']['password']);
     } 
-    elseif ($input['action'] === 'getData') {
-        GetUserData($input['user']['email']);
+    elseif ($input['action'] === 'getDataByEMAIL') {
+        GetUserDataByEMAIL($input['user']['email']);
+    }
+    elseif ($input['action'] === 'getDataByID') {
+        GetUserDataByID($input['user']['id']);
     }
     elseif ($input['action'] === 'setData') {
         SetUserData($input['user']['id'], $input['user']['name'], $input['user']['surname'], $input['user']['email'], $input['user']['password']);
