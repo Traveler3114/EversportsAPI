@@ -4,7 +4,7 @@ require_once 'UserFunctions/Register.php';
 require_once 'UserFunctions/SetUserData.php';
 require_once 'UserFunctions/GetUserData.php';
 require_once 'LookingToPlayFunctions/AddLookingToPlay.php';
-require_once 'LookingToPlayFunctions/GetAllLookingToPlay.php';
+require_once 'LookingToPlayFunctions/GetLookingToPlay.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $input = json_decode(file_get_contents('php://input'), true);
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 } 
 else if($_SERVER['REQUEST_METHOD'] === 'GET'){
-    GetAllLookingToPay();
+    GetLookingToPlay();
 }
 else {
     echo json_encode(["status" => "error", "message" => "Invalid request method"]);

@@ -1,7 +1,7 @@
 <?php
 require_once 'db.php';
 
-function GetAllLookingToPay(){
+function GetLookingToPlay(){
     $conn = openConnection(); // Assuming openConnection() returns a valid MySQLi connection
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
