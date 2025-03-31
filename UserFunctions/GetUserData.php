@@ -8,7 +8,7 @@ function GetUserDataByEMAIL($email) {
     $result = $stmt->get_result();
 
     $user_data = $result->fetch_assoc();
-    echo json_encode(["status" => "success", "user" => $user_data]);
+    echo json_encode(["status" => "success", "obj" => $user_data]);
 }
 function GetUserDataByID($id) {
     $conn = openConnection();
@@ -18,6 +18,6 @@ function GetUserDataByID($id) {
     $result = $stmt->get_result();
 
     $user_data = $result->fetch_assoc();
-    echo json_encode(["status" => "success", "user" => $user_data]);
+    echo json_encode(["status" => "success", "obj" => $user_data]);
 }
 ?>

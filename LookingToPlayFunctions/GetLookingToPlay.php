@@ -50,17 +50,17 @@ function GetLookingToPlay($country, $city, $availableDateTimes, $choosenSports) 
                 }
             }
         }
+        $stmt2->close();
+        $stmt3->close();
+        echo $xml->asXML();
+    }
+    else{
+        echo json_encode(["status" => "error", "message" => "No results found"]);
+        return; // Exit the function if no results are found
     }
 
     // Close all prepared statements and the database connection
     $stmt->close();
-    $stmt2->close();
-    $stmt3->close();
     $conn->close();
-
-    header('Content-Type: application/xml');
-
-    // Output the XML directly
-    echo $xml->asXML();
 }
 ?>
