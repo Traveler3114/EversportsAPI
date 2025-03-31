@@ -27,13 +27,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     elseif($input['action'] === 'AddLookingToPlay'){
         AddLookingToPlay(  $input['lookingToPlay']['availableDateTimes'],$input['lookingToPlay']['country'], $input['lookingToPlay']['city'], $input['lookingToPlay']['detailedLocation'],$input['lookingToPlay']['choosenSports'], $input['lookingToPlay']['description'],$input['lookingToPlay']['user_id']);
     }
+    elseif($input['action'] === 'GetLookingToPlay'){
+        GetLookingToPlay();
+    }
     else {
         echo json_encode(["status" => "error", "message" => "Invalid input or action"]);
     }
 } 
-else if($_SERVER['REQUEST_METHOD'] === 'GET'){
-    GetLookingToPlay();
-}
 else {
     echo json_encode(["status" => "error", "message" => "Invalid request method"]);
 }
