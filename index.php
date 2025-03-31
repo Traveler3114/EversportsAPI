@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         AddLookingToPlay(  $input['lookingToPlay']['availableDateTimes'],$input['lookingToPlay']['country'], $input['lookingToPlay']['city'], $input['lookingToPlay']['detailedLocation'],$input['lookingToPlay']['choosenSports'], $input['lookingToPlay']['description'],$input['lookingToPlay']['user_id']);
     }
     elseif($input['action'] === 'GetLookingToPlay'){
-        GetLookingToPlay();
+        GetLookingToPlay($input['country'],$input['city'],$input['availableDateTimes'],$input['choosenSports']);
     }
     else {
         echo json_encode(["status" => "error", "message" => "Invalid input or action"]);

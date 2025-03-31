@@ -1,21 +1,19 @@
 <?php
 require_once 'db.php';
 
-function GetLookingToPlay(){
-    $conn = openConnection(); // Assuming openConnection() returns a valid MySQLi connection
+function GetLookingToPlay($country, $city, $availableDateTimes, $choosenSports) {
+    $conn = openConnection();
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Prepare and execute the first query for "lookingtoplay"
-    $stmt = $conn->prepare("SELECT * FROM lookingtoplay");
+    $stmt = $conn->prepare("SELECT * FROM lookingtoplay WHERE country = ? AND city = ?");
+    $stmt->bind_param("ss", $country, $city);
     $stmt->execute();
     $result = $stmt->get_result();
 
-    // Create the root of the XML document
     $xml = new SimpleXMLElement('<root/>');
 
-    // Check if there are results
     if ($result->num_rows > 0) {
         // Loop through each row from the "lookingtoplay" table
         while ($row = $result->fetch_assoc()) {
