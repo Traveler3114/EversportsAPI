@@ -52,10 +52,11 @@ function GetLookingToPlay($country, $city, $availableDateTimes, $choosenSports) 
         }
         $stmt2->close();
         $stmt3->close();
-        echo $xml->asXML();
+        echo json_encode(["status" => "success", "obj" => $xml->asXML()]);
+        //echo $xml->asXML();
     }
     else{
-        echo json_encode(["status" => "error", "message" => "No results found"]);
+        echo json_encode(["status" => "error", "obj" => "No results found"]);
         return; // Exit the function if no results are found
     }
 
