@@ -1,13 +1,27 @@
 <?php
 require_once 'db.php';
 
-function GetLookingToPlay($country, $city, $Dates,$FromTimes,$ToTimes, $choosenSports) {
+function GetLookingToPlay($country, $city, $Dates, $FromTimes, $ToTimes, $choosenSports) {
     $conn = openConnection();
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $stmt = $conn->prepare("SELECT * FROM lookingtoplay WHERE country = ? AND city = ?");
+    // Prepare the base query
+    $query = "SELECT * FROM lookingtoplay WHERE country = ? AND city = ?";
+    
+    // Add filters for Dates, FromTimes, and ToTimes
+    if (!empty($Dates)) {
+        $query .= " AND id IN (SELECT lookingtoplay_id FROM availabledatetime WHERE Date IN ('" . implode("','", $Dates) . "'))";
+    }
+    if (!empty($FromTimes)) {
+        $query .= " AND id IN (SELECT lookingtoplay_id FROM availabledatetime WHERE FromTime IN ('" . implode("','", $FromTimes) . "'))";
+    }
+    if (!empty($ToTimes)) {
+        $query .= " AND id IN (SELECT lookingtoplay_id FROM availabledatetime WHERE ToTime IN ('" . implode("','", $ToTimes) . "'))";
+    }
+
+    $stmt = $conn->prepare($query);
     $stmt->bind_param("ss", $country, $city);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -54,9 +68,7 @@ function GetLookingToPlay($country, $city, $Dates,$FromTimes,$ToTimes, $choosenS
         $stmt2->close();
         $stmt3->close();
         echo json_encode(["status" => "success", "obj" => $xml->asXML()]);
-        //echo $xml->asXML();
-    }
-    else{
+    } else {
         echo json_encode(["status" => "error", "obj" => "No results found"]);
         return; // Exit the function if no results are found
     }
