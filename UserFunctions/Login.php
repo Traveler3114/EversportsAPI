@@ -1,5 +1,7 @@
 <?php
 require_once 'db.php';
+require_once 'JWToken.php';
+
 function login($email, $password) {
     $conn = openConnection();
     $checkEmail = $conn->prepare("SELECT * FROM users WHERE email = ?");
@@ -15,7 +17,11 @@ function login($email, $password) {
     $row = $result->fetch_assoc();
     $password_db = $row['password']; 
     if (password_verify($password, $password_db)) {
-        echo json_encode(["status" => "success", "message" => "Login successful"]);
+
+        $jwt= CreateToken($row['id'], $row['email']); // Create JWT token using the user's ID and email
+
+        //echo json_encode(["status" => "success","message" => "Login successful"]);
+        echo json_encode(["status" => "success","message" => "Login successful","token" => $jwt]);
     } else {
         echo json_encode(["status" => "error", "message" => "You entered the wrong password"]);
     }
