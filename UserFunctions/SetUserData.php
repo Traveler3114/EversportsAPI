@@ -1,6 +1,8 @@
 <?php
 require_once 'db.php';
-function SetUserData($id, $name, $surname, $email, $password) {
+require_once 'JWToken.php';
+function SetUserData($id, $name, $surname, $email, $password,$jwt) {
+    
     $conn = openConnection();
 
     $checkPassword = $conn->prepare("SELECT * FROM users WHERE id = ?");

@@ -4,24 +4,27 @@ require_once 'vendor/autoload.php';
 $secret_key = "your_secret_key";
 
 use Firebase\JWT\JWT;
-function CreateToken($id,$email)
+use Firebase\JWT\Key;
+
+function CreateToken($id, $email, $rememberMe = false)
 {
     global $secret_key;
 
-    $payload=[
-            "iat" => time(), // Issued at: time when the token is generated
-            "exp" => time() + (60*60*24), // Expiration time: 1 day from now
-            "data" => [
-                "user_id" => $id, // User ID from the database
-                "email" => $email, // User email from the database
-            ]
-            ];
-        
-          // Use a secure key
+    $expirationTime = $rememberMe ? (60 * 60 * 24 * 30) : (60 * 60 * 2); // 30 days or 2 hours
 
-        $jwt = JWT::encode($payload, $secret_key, 'HS256');
-        return $jwt;
+    $payload = [
+        "iat" => time(),
+        "exp" => time() + $expirationTime,
+        "data" => [
+            "user_id" => $id,
+            "email" => $email,
+        ]
+    ];
+
+    $jwt = JWT::encode($payload, $secret_key, 'HS256');
+    return $jwt;
 }
+
 
 
 function VerifyToken($jwt) {
@@ -33,6 +36,14 @@ function VerifyToken($jwt) {
         // Access token data
         $user_id = $decoded->data->user_id;
         $email = $decoded->data->email;
+
+        // Check if the token is expired
+        if ($decoded->exp < time()) {
+            return [
+                "status" => "error",
+                "message" => "Token has expired"
+            ];
+        }
 
         return [
             "status" => "success",
@@ -47,4 +58,5 @@ function VerifyToken($jwt) {
         ];
     }
 }
+
 ?>

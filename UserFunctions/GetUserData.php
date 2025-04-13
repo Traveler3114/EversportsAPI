@@ -1,23 +1,26 @@
 <?php
 require_once 'db.php';
-function GetUserDataByEMAIL($email) {
-    $conn = openConnection();
-    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
+require_once 'JWToken.php';
 
-    $user_data = $result->fetch_assoc();
-    echo json_encode(["status" => "success", "obj" => $user_data]);
-}
-function GetUserDataByID($id) {
+function GetUserData($jwt, $requested_user_id = null) {
+    $decoded = VerifyToken($jwt);
+
+    if ($decoded['status'] === 'error') {
+        echo json_encode(["status" => "error", "message" => $decoded['message']]);
+        return;
+    }
+
+    // If no user_id provided, use JWT user
+    $user_id = $requested_user_id ?? $decoded['user_id'];
+
     $conn = openConnection();
     $stmt = $conn->prepare("SELECT * FROM users WHERE id = ?");
-    $stmt->bind_param("i", $id);
+    $stmt->bind_param("i", $user_id);
     $stmt->execute();
     $result = $stmt->get_result();
 
     $user_data = $result->fetch_assoc();
     echo json_encode(["status" => "success", "obj" => $user_data]);
 }
+
 ?>
