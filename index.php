@@ -9,6 +9,7 @@ require_once 'JWToken.php';
 require_once 'Messaging/SendMessage.php';
 require_once 'Messaging/GetAllMessages.php';
 
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $input = json_decode(file_get_contents('php://input'), true);
     //Registration
