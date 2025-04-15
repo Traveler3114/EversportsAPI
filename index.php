@@ -7,6 +7,7 @@ require_once 'LookingToPlayFunctions/AddLookingToPlay.php';
 require_once 'LookingToPlayFunctions/GetLookingToPlay.php';
 require_once 'JWToken.php';
 require_once 'Messaging/SendMessage.php';
+require_once 'Messaging/GetAllMessages.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $input = json_decode(file_get_contents('php://input'), true);
@@ -43,6 +44,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //SendMessage
     elseif($input['action'] === 'sendMessage'){
         SendMessage($input['jwt'],$input['lookingtoplay_id'], $input['message']);
+    }
+    //GetAllMessages
+    elseif($input['action'] === 'getAllMessages'){
+        GetAllMessages($input['lookingtoplay_id']);
     }
 
     else {
