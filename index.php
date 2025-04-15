@@ -6,7 +6,7 @@ require_once 'UserFunctions/GetUserData.php';
 require_once 'LookingToPlayFunctions/AddLookingToPlay.php';
 require_once 'LookingToPlayFunctions/GetLookingToPlay.php';
 require_once 'JWToken.php';
-//require_once 'Messaging/SendMessage.php';
+require_once 'Messaging/SendMessage.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $input = json_decode(file_get_contents('php://input'), true);

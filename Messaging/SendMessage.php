@@ -1,6 +1,6 @@
 <?php
-require_once '../JWToken.php';
-require_once '../db.php';
+require_once 'JWToken.php';
+require_once 'db.php';
 
 function SendMessage($jwt,$lookingtoplay_id, $message) {
     $conn = openConnection();
