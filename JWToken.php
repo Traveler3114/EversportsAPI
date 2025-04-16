@@ -6,7 +6,7 @@ $secret_key = "your_secret_key";
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
-function CreateToken($id, $email)
+function CreateToken($id, $email,$role)
 {
     global $secret_key;
 
@@ -17,6 +17,7 @@ function CreateToken($id, $email)
         "data" => [
             "user_id" => $id,
             "email" => $email,
+            "role" => $role
         ]
     ];
 
@@ -48,7 +49,8 @@ function VerifyToken($jwt) {
             "status" => "success",
             "message" => "Token is valid",
             "user_id" => $user_id,
-            "email" => $email
+            "email" => $email,
+            "role" => $decoded->data->role
         ];
     } catch (Exception $e) {
         return [
