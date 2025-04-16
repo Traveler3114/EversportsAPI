@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     //Login
     elseif ($input['action'] === 'login') {
-        login($input['user']['email'], $input['user']['password'],$input['remember_me']);
+        login($input['user']['email'], $input['user']['password']);
     } 
     //getUserData
     elseif ($input['action'] === 'getUserData') {
