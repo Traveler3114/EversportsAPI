@@ -6,18 +6,17 @@ $secret_key = "your_secret_key";
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
-function CreateToken($id, $email,$role)
+function CreateToken($id, $email, $role)
 {
     global $secret_key;
 
-
     $payload = [
         "iat" => time(),
-        "exp" => time() + (60*60*2),
+        "exp" => time() + (60 * 60 * 2), // Token expires in 2 hours
         "data" => [
             "user_id" => $id,
             "email" => $email,
-            "role" => $role
+            "role" => $role // Add role to the payload
         ]
     ];
 

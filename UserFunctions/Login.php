@@ -18,7 +18,7 @@ function login($email, $password) {
     $password_db = $row['password']; 
     if (password_verify($password, $password_db)) {
 
-        $jwt= CreateToken($row['id'], $row['email']); // Create JWT token using the user's ID and email
+        $jwt= CreateToken($row['id'], $row['email'],$row['role']); // Create JWT token using the user's ID and email
 
         //echo json_encode(["status" => "success","message" => "Login successful"]);
         echo json_encode(["status" => "success","message" => "Login successful","token" => $jwt]);
