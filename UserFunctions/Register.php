@@ -14,8 +14,8 @@ function register($name, $surname, $email, $password) {
     }
 
     $password_hash = password_hash($password, PASSWORD_BCRYPT);
-    $stmt = $conn->prepare("INSERT INTO users (name, surname, email, password) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("ssss", $name, $surname, $email, $password_hash);
+    $stmt = $conn->prepare("INSERT INTO users (name, surname, email, password,role) VALUES (?, ?, ?, ?,?)");
+    $stmt->bind_param("sssss", $name, $surname, $email, $password_hash,"user");
 
     if ($stmt->execute()) {
         echo json_encode(["status" => "success", "message" => "Registration successful"]);
