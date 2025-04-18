@@ -47,7 +47,7 @@ function VerifyToken($jwt) {
         return [
             "status" => "success",
             "message" => "Token is valid",
-            "user_id" => $user_id,
+            "user_id" => strval($user_id),
             "email" => $email,
             "role" => $decoded->data->role
         ];
