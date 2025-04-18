@@ -1,8 +1,11 @@
 <?php
 require_once 'db.php';
+require_once 'JWToken.php';
 
-function AddLookingToPlay($availableDateTimes,$country, $city, $detailedLocation, $choosenSports,$description, $user_id) {
+function AddLookingToPlay($availableDateTimes,$country, $city, $detailedLocation, $choosenSports,$description, $jwt) {
     $conn = openConnection();
+    $decoded=VerifyToken($jwt);
+    $user_id = $decoded['user_id'];
     
     // Insert into lookingtoplay
     $stmt = $conn->prepare("INSERT INTO lookingtoplay (country, city, detailedLocation, description, user_id) VALUES (?, ?, ?, ?, ?)");
