@@ -5,6 +5,7 @@ require_once 'UserFunctions/SetUserData.php';
 require_once 'UserFunctions/GetUserData.php';
 require_once 'LookingToPlayFunctions/AddLookingToPlay.php';
 require_once 'LookingToPlayFunctions/GetLookingToPlay.php';
+require_once 'LookingToPlayFunctions/DeleteLookingToPlay.php';
 require_once 'JWToken.php';
 require_once 'Messaging/SendMessage.php';
 require_once 'Messaging/GetAllMessages.php';
@@ -37,6 +38,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     elseif($input['action'] === 'GetLookingToPlay'){
         GetLookingToPlay($input['country'],$input['city'],$input['Dates'],$input['FromTimes'],$input['ToTimes'],$input['choosenSports']);
     }
+    elseif($input['action'] === 'GetAllLookingToPlay'){
+        GetAllLookingToPlay();
+    }
     //verifyToken
     elseif($input['action'] === 'verifyToken'){
         $response = VerifyToken($input['jwt']);
@@ -50,7 +54,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     elseif($input['action'] === 'getAllMessages'){
         GetAllMessages($input['lookingtoplay_id']);
     }
-
+    elseif($input['action'] === 'DeleteLookingToPlay'){
+        DeleteLookingToPlay($input['lookingtoplay_id']);
+    }
     else {
         echo json_encode(["status" => "error", "message" => "Invalid input or action"]);
     }
