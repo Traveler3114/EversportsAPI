@@ -3,6 +3,7 @@ require_once 'UserFunctions/Login.php';
 require_once 'UserFunctions/Register.php';
 require_once 'UserFunctions/SetUserData.php';
 require_once 'UserFunctions/GetUserData.php';
+require_once 'UserFunctions/DeleteUser.php';
 require_once 'LookingToPlayFunctions/AddLookingToPlay.php';
 require_once 'LookingToPlayFunctions/GetLookingToPlay.php';
 require_once 'LookingToPlayFunctions/DeleteLookingToPlay.php';
@@ -59,6 +60,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     elseif($input['action'] === 'GetAllUsers'){
         GetAllUsers();
+    }
+    else if ($input['action'] === 'DeleteUser') {
+        DeleteUser($input['user_id'], $input['jwt']);
     }
     else {
         echo json_encode(["status" => "error", "message" => "Invalid input or action"]);
