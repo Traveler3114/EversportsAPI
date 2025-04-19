@@ -36,6 +36,7 @@ function DeleteLookingToPlay($lookingtoplay_id) {
     $stmt1->close();
     $stmt2->close();
     $stmt3->close();
+    $stmt4->close();
     closeConnection($conn);
 }
 ?>

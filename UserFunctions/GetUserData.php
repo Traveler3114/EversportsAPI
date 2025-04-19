@@ -22,5 +22,17 @@ function GetUserData($jwt, $requested_user_id = null) {
     $user_data = $result->fetch_assoc();
     echo json_encode(["status" => "success", "obj" => $user_data]);
 }
+function GetAllUsers(){
+    $conn = openConnection();
+    $stmt = $conn->prepare("SELECT * FROM users");
+    $stmt->execute();
+    $result = $stmt->get_result();
 
+    $users_data = array();
+    while ($row = $result->fetch_assoc()) {
+        $users_data[] = $row;
+    }
+    echo json_encode(["status" => "success", "obj" => $users_data]);
+    $stmt->close();
+}
 ?>

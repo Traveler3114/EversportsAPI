@@ -57,10 +57,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     elseif($input['action'] === 'DeleteLookingToPlay'){
         DeleteLookingToPlay($input['lookingtoplay_id']);
     }
+    elseif($input['action'] === 'GetAllUsers'){
+        GetAllUsers();
+    }
     else {
         echo json_encode(["status" => "error", "message" => "Invalid input or action"]);
     }
 } 
+
+
 
 else {
     echo json_encode(["status" => "error", "message" => "Invalid request method"]);
