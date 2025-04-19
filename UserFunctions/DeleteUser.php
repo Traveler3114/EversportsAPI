@@ -9,11 +9,6 @@ function DeleteUser($user_id, $jwt) {
         return;
     }
 
-    // Check if the user is authorized to delete this user
-    if ($decoded['user_id'] !== $user_id) {
-        echo json_encode(["status" => "error", "message" => "Unauthorized action"]);
-        return;
-    }
 
     $conn = openConnection();
     $stmt = $conn->prepare("DELETE FROM users WHERE id = ?");
