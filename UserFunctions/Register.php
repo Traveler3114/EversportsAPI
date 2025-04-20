@@ -2,8 +2,11 @@
 require_once 'db.php';
 
 function register($name, $surname, $email, $password) {
+
     $conn = openConnection();
-    
+
+
+
     $checkEmail = $conn->prepare("SELECT * FROM users WHERE email = ?");
     $checkEmail->bind_param("s", $email);
     $checkEmail->execute();
@@ -16,7 +19,8 @@ function register($name, $surname, $email, $password) {
 
     $password_hash = password_hash($password, PASSWORD_BCRYPT);
     $stmt = $conn->prepare("INSERT INTO users (name, surname, email, password,role) VALUES (?, ?, ?, ?,?)");
-    $stmt->bind_param("sssss", $name, $surname, $email, $password_hash,"user");
+    $role="user";
+    $stmt->bind_param("sssss", $name, $surname, $email, $password_hash,$role);
 
     if ($stmt->execute()) {
         echo json_encode(["status" => "success", "message" => "Registration successful"]);
