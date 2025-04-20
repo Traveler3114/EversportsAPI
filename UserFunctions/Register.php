@@ -1,5 +1,6 @@
 <?php
 require_once 'db.php';
+
 function register($name, $surname, $email, $password) {
     $conn = openConnection();
     
