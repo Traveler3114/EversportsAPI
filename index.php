@@ -10,6 +10,7 @@ require_once 'LookingToPlayFunctions/DeleteLookingToPlay.php';
 require_once 'JWToken.php';
 require_once 'Messaging/SendMessage.php';
 require_once 'Messaging/GetAllMessages.php';
+require_once 'ExportInPDF.php';
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -63,6 +64,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     else if ($input['action'] === 'DeleteUser') {
         DeleteUser($input['user_id'], $input['jwt']);
+    }
+    else if ($input['action'] === 'ExportInPDF') {
+        MakePDF();
     }
     else {
         echo json_encode(["status" => "error", "message" => "Invalid input or action"]);
