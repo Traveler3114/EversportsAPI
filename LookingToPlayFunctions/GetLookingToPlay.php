@@ -1,5 +1,6 @@
 <?php
-require_once 'db.php';
+require_once '../db.php';
+require_once '../JWToken.php';
 
 $input = json_decode(file_get_contents('php://input'), true);
 if($input['action'] == "GetLookingToPlay"){
