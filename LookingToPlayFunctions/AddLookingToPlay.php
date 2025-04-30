@@ -2,6 +2,7 @@
 require_once '../db.php';
 require_once '../JWToken.php';
 
+
 header('Content-Type: application/json');
 
 $input = json_decode(file_get_contents('php://input'), true);
@@ -14,7 +15,7 @@ $city = $lookingToPlay['city'] ?? null;
 $detailedLocation = $lookingToPlay['detailedLocation'] ?? null;
 $choosenSports = $lookingToPlay['choosenSports'] ?? null;
 $description = $lookingToPlay['description'] ?? null;
-$jwt = $lookingToPlay['jwt'] ?? null;
+$jwt = $input['jwt'] ?? null;
 
 
 

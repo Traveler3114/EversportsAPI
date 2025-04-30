@@ -6,6 +6,15 @@ $secret_key = "your_secret_key";
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
+
+$input = json_decode(file_get_contents('php://input'), true);
+$jwt = $input['jwt'] ?? null;
+$action = $input['action'] ?? null;
+if($action == "VerifyToken"){
+    $decoded = VerifyToken($jwt);
+    echo json_encode($decoded);
+    exit;
+}
 function CreateToken($id, $email, $role)
 {
     global $secret_key;

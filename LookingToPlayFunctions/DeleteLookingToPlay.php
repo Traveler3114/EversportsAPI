@@ -6,7 +6,14 @@ header('Content-Type: application/json');
 
 $input = json_decode(file_get_contents('php://input'), true);
 $lookingtoplay_id = $input['lookingtoplay_id'] ?? null;
+$jwt = $input['jwt'] ?? null;
 
+$decoded = VerifyToken($jwt);
+$user_id = $decoded['user_id'];
+if($decoded['status'] != "success"){
+    echo json_encode(["status" => "error", "message" => "Invalid token"]);
+    exit;
+}
 
 $conn = openConnection();
 if ($conn->connect_error) {
