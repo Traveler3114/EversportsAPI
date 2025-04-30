@@ -1,6 +1,21 @@
 <?php
 require_once 'db.php';
 
+$input = json_decode(file_get_contents('php://input'), true);
+if($input['action'] == "GetLookingToPlay"){
+    $country = $input['country'] ?? null;
+    $city = $input['city'] ?? null;
+    $Dates = $input['Dates'] ?? null;
+    $FromTimes = $input['FromTimes'] ?? null;
+    $ToTimes = $input['ToTimes'] ?? null;
+    $choosenSports = $input['choosenSports'] ?? null;
+
+    GetLookingToPlay($country, $city, $Dates, $FromTimes, $ToTimes, $choosenSports);
+} else if($input['action'] == "GetAllLookingToPlay"){
+    GetAllLookingToPlay();
+}
+
+
 function GetLookingToPlay($country, $city, $Dates, $FromTimes, $ToTimes, $choosenSports) {
     $conn = openConnection();
     if ($conn->connect_error) {

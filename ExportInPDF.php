@@ -4,6 +4,7 @@ require_once 'db.php';
 
 use Dompdf\Dompdf;
 
+MakePDF();
 
 // MakePDF function
 function MakePDF(){
