@@ -15,6 +15,11 @@ $password = $user['password'] ?? '';
 $jwt = $input['jwt'];
 
 $decoded=VerifyToken($jwt);
+if ($decoded['status'] === 'error') {
+    echo json_encode(["status" => "error", "message" => $decoded['message']]);
+    return;
+}
+
 $user_id = $decoded['user_id'] ?? null;
 
 $conn = openConnection();

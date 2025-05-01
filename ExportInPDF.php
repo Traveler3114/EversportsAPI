@@ -10,6 +10,7 @@ MakePDF();
 function MakePDF(){
     // Open database connection
     $conn = openConnection();
+    
 
     // Generate the table HTML
     $html = CreateTable("users", $conn);
