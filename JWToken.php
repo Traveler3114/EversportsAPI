@@ -1,7 +1,7 @@
 <?php
 require_once 'vendor/autoload.php';
 
-$secret_key = "your_secret_key";
+$secret_key = "Fy-4My3y6I0mvI6NrrmuU5xkdcBMzt3Kh9v-Ak_ESrM=";
 
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
