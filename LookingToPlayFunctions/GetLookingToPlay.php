@@ -2,7 +2,17 @@
 require_once '../db.php';
 require_once '../JWToken.php';
 
+header('Content-Type: application/json');
+
 $input = json_decode(file_get_contents('php://input'), true);
+$jwt = $input['jwt'] ?? null;
+$decoded = VerifyToken($jwt);
+if ($decoded['status'] == "error") {
+    echo json_encode(["status" => "error", "message" => "Token is invalid"]);
+    return;
+}
+
+
 if($input['action'] == "GetLookingToPlay"){
     $country = $input['country'] ?? null;
     $city = $input['city'] ?? null;
@@ -124,7 +134,7 @@ function GetAllLookingToPlay(){
             $result2 = $stmt2->get_result();
             $item2 = $item->addChild('availabledatetimes');
 
-            // Loop through the availabledatetimes result and add it to the XML
+            //Loop through the availabledatetimes result and add it to the XML
             while ($row2 = $result2->fetch_assoc()) {
                 $item3 = $item2->addChild('availabledatetime');
                 foreach ($row2 as $key => $value) {
@@ -149,12 +159,13 @@ function GetAllLookingToPlay(){
 
         $stmt2->close();
         $stmt3->close();
+        //echo json_encode(["status" => "success", "obj" => $xml]);
         echo json_encode(["status" => "success", "obj" => $xml->asXML()]);
+        //echo $xml->asXML();
     } else {
         echo json_encode(["status" => "error", "obj" => "No results found"]);
         return; // Exit the function if no results are found
     }
-
     // Close all prepared statements and the database connection
     $stmt->close();
     $conn->close();
