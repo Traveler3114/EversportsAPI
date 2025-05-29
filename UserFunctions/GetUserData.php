@@ -4,6 +4,18 @@ require_once '../JWToken.php';
 
 header('Content-Type: application/json');
 
+
+
+$jwt = $_GET['jwt']??null;
+
+
+$decoded = VerifyToken($jwt);
+if ($decoded['status'] !== 'success') {
+    echo json_encode($decoded);
+    exit;
+}
+
+
 $userid = $_GET['userid'] ?? null;
 
 
