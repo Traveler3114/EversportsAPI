@@ -4,30 +4,18 @@ require_once '../JWToken.php';
 
 header('Content-Type: application/json');
 
-// Get the query parameters
-$jwt = $_GET['jwt'] ?? null;
-$howmany = $_GET['howmany'] ?? null;
+$userid = $_GET['userid'] ?? null;
 
-if (!$jwt) {
-    echo json_encode(["status" => "error", "message" => "JWT parameter is missing"]);
-    exit;
-}
 
-if ($howmany==1 ) {
-    GetUserData($jwt);  // If user_id is provided, fetch specific user data
+if ($userid!=null) {
+    GetUserData($userid);  // If user_id is provided, fetch specific user data
 } else {
-    GetAllUsers($jwt);  // If no user_id is provided, fetch all users
+    GetAllUsers();  // If no user_id is provided, fetch all users
 }
 
-function GetUserData($jwt) {
-    $decoded = VerifyToken($jwt);
+function GetUserData($userid) {
 
-    if ($decoded['status'] === 'error') {
-        echo json_encode(["status" => "error", "message" => $decoded['message']]);
-        return;
-    }
-
-    $user_id = $decoded['user_id'];
+    $user_id = $userid;
 
     $conn = openConnection();
     $stmt = $conn->prepare("SELECT * FROM users WHERE id = ?");
@@ -42,13 +30,7 @@ function GetUserData($jwt) {
     $conn->close();
 }
 
-function GetAllUsers($jwt) {
-    $decoded = VerifyToken($jwt);
-
-    if ($decoded['status'] === 'error') {
-        echo json_encode(["status" => "error", "message" => $decoded['message']]);
-        return;
-    }
+function GetAllUsers() {
 
     $conn = openConnection();
     $stmt = $conn->prepare("SELECT id, name, surname, email, role FROM users");

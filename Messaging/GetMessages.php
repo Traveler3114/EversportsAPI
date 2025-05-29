@@ -6,8 +6,13 @@ header('Content-Type: application/json');
 
 $input = json_decode(file_get_contents('php://input'), true);
 
-$jwt = $input['jwt'] ?? null;
-$lookingtoplay_id = $input['lookingtoplay_id'] ?? null;
+
+// $jwt = $_GET['jwt'];
+// if (!$jwt) {
+//     echo json_encode(["status" => "error", "message" => "JWT parameter is missing"]);
+//     exit;
+// }
+$lookingtoplay_id = $_GET['lookingtoplayid'];
 
 $conn = openConnection();
 if ($conn->connect_error) {
