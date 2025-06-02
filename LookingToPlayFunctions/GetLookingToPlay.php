@@ -27,6 +27,8 @@ if($input['action'] == "GetLookingToPlay"){
 }
 
 
+
+
 function GetLookingToPlay($country, $city, $Dates, $FromTimes, $ToTimes, $choosenSports) {
     $conn = openConnection();
     if ($conn->connect_error) {
@@ -35,6 +37,12 @@ function GetLookingToPlay($country, $city, $Dates, $FromTimes, $ToTimes, $choose
 
     // Prepare the base query
     $query = "SELECT * FROM lookingtoplay WHERE country = ? AND city = ?";
+    if (!empty($country)) {
+        $query .= " AND country = ?";
+    }
+    if (!empty($city)) {
+        $query .= " AND city = ?";
+    }
     
     // Add filters for Dates, FromTimes, and ToTimes
     if (!empty($Dates)) {

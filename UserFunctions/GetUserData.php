@@ -7,6 +7,8 @@ header('Content-Type: application/json');
 
 
 $jwt = $_GET['jwt']??null;
+$fetchall=$_GET['fetchall']??null;
+$user_id = $_GET['userid'] ?? null;
 
 
 $decoded = VerifyToken($jwt);
@@ -19,10 +21,12 @@ if ($decoded['status'] !== 'success') {
 $userid = $_GET['userid'] ?? null;
 
 
-if ($userid!=null) {
-    GetUserData($userid);  // If user_id is provided, fetch specific user data
+if ($userid !== null) {
+    GetUserData($userid);
+} elseif (filter_var($fetchall, FILTER_VALIDATE_BOOLEAN)) {
+    GetAllUsers();
 } else {
-    GetAllUsers();  // If no user_id is provided, fetch all users
+    GetUserData(intval($decoded['user_id']));
 }
 
 function GetUserData($userid) {

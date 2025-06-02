@@ -12,9 +12,9 @@ $lookingToPlay=$input['lookingToPlay'] ?? null;
 $availableDateTimes = $lookingToPlay['availableDateTimes'] ?? null;
 $country = $lookingToPlay['country'] ?? null;
 $city = $lookingToPlay['city'] ?? null;
-$detailedLocation = $lookingToPlay['detailedLocation'] ?? null;
+$detailedLocation = $lookingToPlay['detailedLocation'] ?? "";
 $choosenSports = $lookingToPlay['choosenSports'] ?? null;
-$description = $lookingToPlay['description'] ?? null;
+$description = $lookingToPlay['description'] ?? "";
 $jwt = $input['jwt'] ?? null;
 
 
