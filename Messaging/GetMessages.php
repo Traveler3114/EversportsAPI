@@ -26,7 +26,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$stmt = $conn->prepare("SELECT sender_id, encrypted_message FROM lookingtoplaychat WHERE lookingtoplay_id = ?");
+$stmt = $conn->prepare("SELECT id,sender_id, encrypted_message FROM lookingtoplaychat WHERE lookingtoplay_id = ?");
 $stmt->bind_param("i", $lookingtoplay_id);
 $stmt->execute();
 $result = $stmt->get_result();
