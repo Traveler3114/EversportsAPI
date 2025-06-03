@@ -49,7 +49,6 @@ function GetLookingToPlay($country, $city, $Dates, $FromTimes, $ToTimes, $choose
         $query .= " AND id IN (SELECT lookingtoplay_id FROM availabledatetime WHERE ToTime IN ('" . implode("','", $ToTimes) . "'))";
     }
     if (!empty($choosenSports)) {
-        //$query .= " AND id IN (SELECT lookingtoplay_id FROM choosensport WHERE name IN ('" . implode("','", array_map([$conn, 'real_escape_string'], $choosenSports)) . "'))";
         $query .= " AND id IN (SELECT lookingtoplay_id FROM choosensport WHERE name IN ('" . implode("','", $choosenSports) . "'))";
     }
 
